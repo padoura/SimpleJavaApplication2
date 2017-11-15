@@ -11,22 +11,24 @@ package simplejavaapplication2;
  */
 
 // original code from https://github.com/alekarios/JAVA_homeworks/blob/master/lesson5/simple_java_app_2/Person.java - MODIFIED
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Person {
     private String lastName;
     private String firstName;
     private String fathersName;
     private Date birthday;
-    private static PrintWriter writer = null;
+    
+    public void setName(String fullName){
+        String[] names = fullName.split("/-");
+        setFirstName(names[0]);
+        setLastName(names[1]);
+        setFatherName(names[2]);
+    }
     
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -78,18 +80,6 @@ public class Person {
     
     public Date getBirthday() {
         return this.birthday;
-    }
-    
-    public void writeString(int i, String s) {
-        if(i == 1) {
-            try {
-                writer = new PrintWriter(this.lastName + "." + this.firstName + ".txt");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        writer.println("Line " + i + ": " + s);
-        if(i == 3) writer.close();
     }
 
     public int getBirthYearInt() {
